@@ -75,42 +75,45 @@ def read_and_create(filename):
 filename = "us-contacts.csv"
 employeeTable = read_and_create(filename)
 
-userInput = input("Enter Employee ID to find employee: ")
-try:
-    employee = employeeTable.get(userInput)
 
-    print("Employee found:")
-    print(f"Employee ID: {employee.employeeId}")
-    print(f"Name: {employee.firstName} {employee.lastName}")
-    print(f"Address: {employee.street}, {employee.city}, {employee.state}, {employee.zip}")
-    print(f"Phone: {employee.phone}")
-    print(f"Email: {employee.email}")
-    print()
-except KeyError:
-    print("Employee not found.")
-    print()
-    print()
 
-userInput = input("Enter Employee ID to remove employee: ")
-try:
-    employee = employeeTable.remove(userInput)
-    print("Employee " + userInput + " removed.")
-    print()
-except KeyError:
-    print("Employee not found.")
-    print()
-
-userInput = input("Print Table? Y or N: ")
-if userInput == "Y" or userInput == "y":
-    print("          ID     Name                  Address                                  Phone          Email")
-    for entry in employeeTable.array:
-        if entry is not None:
-            employee_id, employee = entry
-            print(f"Employee: {employee.employeeId}, {employee.firstName} {employee.lastName}, {employee.street}, {employee.city}, {employee.state}, {employee.zip}, {employee.phone}, {employee.email}")
+uinput = input("Get (g), Remove (r), Print Table (p), Exit (0)? - ")
+print()
+while uinput != "0":
+    if uinput == "g":
+        userInput = input("Enter Employee ID to find employee: ")
+        try:
+            employee = employeeTable.get(userInput)
+            print("Employee found:")
+            print(f"Employee ID: {employee.employeeId}")
+            print(f"Name: {employee.firstName} {employee.lastName}")
+            print(f"Address: {employee.street}, {employee.city}, {employee.state}, {employee.zip}")
+            print(f"Phone: {employee.phone}")
+            print(f"Email: {employee.email}")
             print()
-        else:
-            print("-")
-else:
-    print("Table not printed...")
-    print()
-    print()
+        except KeyError:
+            print("Employee not found.")
+            print()
+    
+    elif uinput == "r":
+        userInput = input("Enter Employee ID to remove employee: ")
+        try:
+            employeeTable.remove(userInput)
+            print("Employee " + userInput + " removed.")
+            print()
+        except KeyError:
+            print("Employee not found.")
+            print()
+
+    elif uinput.lower() == "p":
+        print("          ID     Name                  Address                                  Phone          Email")
+        for entry in employeeTable.array:
+            if entry is not None:
+                employee_id, employee = entry
+                print(f"Employee: {employee.employeeId}, {employee.firstName} {employee.lastName}, {employee.street}, {employee.city}, {employee.state}, {employee.zip}, {employee.phone}, {employee.email}")
+                print()
+            else:
+                print("-")
+        print()
+        print()
+    uinput = input("Get (g), Remove (r), Print Table (p), Exit (0)? - ")
